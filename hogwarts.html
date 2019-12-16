@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	 
+<title></title>
+	<style>
+	#div-container{
+			border: 10px solid #f5b041;
+			width: 100%;
+			padding: 500px;
+			text-align: center;
+			margin: 0px;
+			background-image: url('https://vignette.wikia.nocookie.net/harrypotter/images/a/ae/Hogwartscrest.png/revision/latest?cb=20110806202805');
+			
+	}
+	h1{
+		color:#800000
+	}
+	h3{
+		color:#black
+
+	}
+	
+</style>
+
+</head>
+<body>
+		<div id="div-container">
+			<h1 class="txt-center" >Greetings Wizard!<br></br> Want to know which Griffindor character you are?</h1>
+		
+			<div class="container mx-auto col-md-4">
+				<h3 class=" text-center my-4">Please enter your name</h3>
+				<div class="input-group my-4 text-center text-muted">
+						<input class="input-lg shindanuser" type="text" autocomplete="off" name="u" maxlength="255" placeholder="Your Name">
+						<div class="input-group-append">
+								<button type="button" class="btn btn-primary" id="submit-btn">Go</button>
+						</div>
+				</div>
+				<div class="card" id="card-data">
+						<h3 id="name-h3"></h3>
+					<img id="img-house" class="icon mx-auto text-center" src="" width="1250px" height="800px">
+						</div>
+					</div>
+				</div>
+			</div>
+
+     
+		<script 
+		src="https://code.jquery.com/jquery-3.4.1.js"
+		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+		crossorigin="anonymous"></script>
+
+
+		
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		
+
+	<script type="text/javascript">
+		$(document).ready(function(){  
+			$('#card-data').hide();
+            	$("#submit-btn").click(function(){
+                	var test = $("#input-house").val();
+               		$.ajax({  
+						type: "GET", 
+						url: 'http://hp-api.herokuapp.com/api/characters/house/gryffindor',  
+						success: function(result) {
+						console.log(result);
+                    	$('#card-data').show();
+						let houseName=result.data.house[test].name;
+						let imgSrc=result.data.house[test].url;
+						console.log(houseName);
+						$("#name-h3").text(houseName);
+						$("#img-house").attr('src',imgSrc);
+				},  
+				error: function(XMLHttpRequest, errorMsg, errorThrown) {
+					alert(errorMsg);
+				}  
+			})
+		})
+	})
+		</script>
+		
+
+</body>
+</html>
